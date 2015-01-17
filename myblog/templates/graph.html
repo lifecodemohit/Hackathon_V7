@@ -35,12 +35,16 @@
         </div>
       </div>
     </div>
-    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script type="text/javascript" src="/static/graph/skillsdata.js"></script>
-    <script type="text/javascript" src="/static/graph/skill.js"></script>
-    <script type="text/javascript">
-      // Hack to make this example display correctly in an iframe on bl.ocks.org
-      d3.select(self.frameElement).style("height", "700px");
-  </script> 
+    {% if not user.is_authenticated %}
+    <h1>Login to see your details</h1>
+    {% else %}
+     <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+          <script type="text/javascript" src="/static/graph/{{userdetail}}data.js"></script>
+          <script type="text/javascript" src="/static/graph/skill.js"></script>
+          <script type="text/javascript">
+          // Hack to make this example display correctly in an iframe on bl.ocks.org
+          d3.select(self.frameElement).style("height", "700px");
+      </script> 
+    {% endif %}
   </body>
 </html>

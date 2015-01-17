@@ -174,7 +174,7 @@ var chart = function (d3) {
             .scale(k)
             .tickSize(0)
             .tickPadding(10)
-            .tickValues([20, 40, 60, 80, 100])
+            .tickValues([0,10,20,30,40,50,60,70,80,90,100])
             .orient("left"),
         n = d3.svg.line().interpolate("basis").x(function (a) {
             return j(a.date)

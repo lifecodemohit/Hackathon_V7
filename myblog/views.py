@@ -12,7 +12,8 @@ import json
 import csv
 
 def graph(request) :
-
+	print request.user.username
+	context =""
 	if(request.method == "POST") :
 		atr1 = request.POST['attribute1']
 		atr2 = request.POST['attribute2']
@@ -21,10 +22,11 @@ def graph(request) :
 		atr5 = request.POST['attribute5']
 		atr6 = request.POST['option']
 		atr7 = request.POST['value']
-		file1 = open("/home/lifecodemohit/DjangoProjects/Blog/myblog/static/graph/abcd.json", "r+")
+		file1 = open("/home/lifecodemohit/DjangoProjects/Blog/myblog/static/graph/"+request.user.username+"abcd.json", "r+")
 		settings = ""
 		settings = json.load(file1)
-		#settings[atr1][atr2][atr3][atr4][atr5].append(int(atr7))
+		temp=settings[atr1]
+		temp[atr2][atr3][atr4][atr5].append(int(atr7))
 		#settings['Skills']['Web Development']['Server Side']['Active 2']['Proper'].append(int(atr6))
 		#settings['Skills']['Web Development']['Server Side']['Active 2']['Proper'].append(70)
 		#settings['Skills']['Web Development']['Server Side']['Active 2']['Proper']=[50,60,70]
@@ -32,19 +34,28 @@ def graph(request) :
 		#settings['Skills']['Web Development']['Server Side']['Active Page']['ABYYKT']=[0,90,90] #update the make of the first car
 		file1.close()
 		
-		jsonFile = open("/home/lifecodemohit/DjangoProjects/Blog/myblog/static/graph/abcd.json", "w+")
+		jsonFile = open("/home/lifecodemohit/DjangoProjects/Blog/myblog/static/graph/"+request.user.username+"abcd.json", "w+")
 	 	jsonFile.write(json.dumps(settings))
 	 	jsonFile.close()
 
-	 	file1 = open("/home/lifecodemohit/DjangoProjects/Blog/myblog/static/graph/abcd.json", "r+")
-	 	file2 = open("/home/lifecodemohit/DjangoProjects/Blog/myblog/static/graph/skillsdata.js", "w+")
+	 	file1 = open("/home/lifecodemohit/DjangoProjects/Blog/myblog/static/graph/"+request.user.username+"abcd.json", "r+")
+	 	file2 = open("/home/lifecodemohit/DjangoProjects/Blog/myblog/static/graph/"+request.user.username+"data.js", "w+")
 	 	file2.write("var skillsdata;" + "\n" + "skillsdata =\n")
 	 	for line in file1 :
 	 		file2.write(line)
 	 	file1.close()
 	 	file2.close()
 		print 'Sample File Successfully Updated!'
-	return render(request, 'graph.html', "")
+	else :
+		file1 = open("/home/lifecodemohit/DjangoProjects/Blog/myblog/static/graph/"+request.user.username+"abcd.json", "r+")
+	 	file2 = open("/home/lifecodemohit/DjangoProjects/Blog/myblog/static/graph/"+request.user.username+"data.js", "w+")
+	 	file2.write("var skillsdata;" + "\n" + "skillsdata =\n")
+	 	for line in file1 :
+	 		file2.write(line)
+	 	file1.close()
+	 	file2.close()
+		context = { 'userdetail' : request.user.username} 
+	return render(request, 'graph.html', context)
 
 def index(request) :
 	print request.user.username + " currently logged in"
