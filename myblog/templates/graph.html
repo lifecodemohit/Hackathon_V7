@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Skills sunburst</title>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'graph/skill.css' %}"/>
+  </head>
+  <body>
+    <form id="graph_form" action="{% url 'graph' %}" method="post">
+      {% csrf_token %}
+      <ul class="">
+            {% if not user.is_authenticated %}
+              <h1> Login to see your details</h1>
+            {% else %}
+              <input type="text" class="form-control" placeholder="attribute1" name="attribute1" id="attribute1">
+              <input type="text" class="form-control" placeholder="attribute2" name="attribute2" id="attribute2">
+              <input type="text" class="form-control" placeholder="attribute3" name="attribute3" id="attribute3">
+              <input type="text" class="form-control" placeholder="attribute4" name="attribute4" id="attribute4">
+              <input type="text" class="form-control" placeholder="attribute5" name="attribute5" id="attribute5">
+              <input type="text" class="form-control" placeholder="option" name="option" id="option">
+              <input type="text" class="form-control" placeholder="value" name="value" id="value">
+              <button class="btn btn-default" type="submit" value="Login">Login</button>
+            {% endif %}        
+      </ul>     
+    </form>
+    <div id="skills">
+      <div id="skillmap">
+        <div class="skills-wrapper">
+          <div class="skills-sunburst"   style="margin-left:0px"></div>
+          <div class="skills-chart" >
+            <div id="skills-chart-breadcrumb"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/graph/skillsdata.js"></script>
+    <script type="text/javascript" src="/static/graph/skill.js"></script>
+    <script type="text/javascript">
+      // Hack to make this example display correctly in an iframe on bl.ocks.org
+      d3.select(self.frameElement).style("height", "700px");
+  </script> 
+  </body>
+</html>

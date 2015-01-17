@@ -1,0 +1,25 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta charset="utf-8">
+	<title>FooBar Portal</title>
+</head>
+<body>
+	<h1>Add a question</h1>
+  	<form id="upload_form" action="{% url 'add_question' %}" method="post">
+		{% csrf_token %}
+		<ul class="">
+        	{% if user.is_authenticated %}
+				<input type="text" class="form-control" placeholder="Heading" name="heading" id="heading">
+				<input type="text" class="form-control" placeholder="Main Text" name="main_text" id="main_text">
+				<input type="text" class="form-control" placeholder="Tags" name="hash_tag" id="hash_tag">
+				<button class="btn btn-default" type="submit" value="Post">Post</button>
+			{% else %}
+				<h2>Login to add a question</h2>
+			{% endif %}							
+		</ul>			
+	</form>
+</body>
+</html>

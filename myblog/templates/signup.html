@@ -1,0 +1,24 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta charset="utf-8">
+	<title>FooBar Portal</title>
+</head>
+<body>
+	<h1> Success</h1>
+	<form name="signup-form" class="signup-form" id="upload_form" action="{% url 'signup' %}" method="post" enctype="multipart/form-data">
+	
+		<div class="header">
+		<h1>Registration Form</h1>
+		</div>
+						{% csrf_token %}
+						<!--{{ form }}!-->
+						<input type="text" class="form-control" placeholder="Username" name="username" id="username">
+						<input type="text" class="form-control" placeholder="Email id" name="email" id="email">
+						<input type="text" class="form-control" placeholder="Password" name="password" id="password">
+						<button type="submit" class="btn btn-default" style="width:20%;height:50px;margin-left:15px">Submit</button>
+	</form>
+</body>
+</html>

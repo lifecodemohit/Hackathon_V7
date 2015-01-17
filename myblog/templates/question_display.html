@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta charset="utf-8">
+	<title>FooBar Portal</title>
+</head>
+<body>
+	<h1>View question</h1>
+	<h2>{{question.heading}}</h2>
+	<h3>{{question.main_text}}</h3>
+	<h3>{{question.pub_date}}</h3>
+	<h3>{{question.votes}}</h3>
+	<h3>{{question.views}}</h3>
+	<h3>{{question.hash_tag}}</h3>	
+	<h3>{{question.num_answers}}</h3>
+	{% if user.is_authenticated %}
+		<a href="question_upvote" class="btn btn-default">Upvote</a>
+	{% endif %}
+	<ul>
+	 {% for comment in question.comment_set.all %}
+	 	<li>{{comment.comment_main_text}}<br>{{comment.comment_user_name}}</li>
+	 {% endfor%}
+	 </ul>
+  	<form id="upload_form" action="/question/{{ question.id }}/" method="post">
+		{% csrf_token %}
+		<ul class="">
+        	{% if user.is_authenticated %}
+				<input type="text" class="form-control" placeholder="Main Text" name="comment_main_text" id="comment_main_text">
+				<button class="btn btn-default" type="submit" value="Post">Comment</button>
+			{% else %}
+				<h2>Login to comment</h2>
+			{% endif %}							
+		</ul>			
+	</form>
+</body>
+</html>
